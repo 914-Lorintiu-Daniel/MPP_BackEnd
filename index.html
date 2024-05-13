@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Vite + React + TS</title>
+    </head>
+    <body>
+        <div id="root"></div>
+        <script type="module" src="/src/main.tsx">
+                  let $buttons = $('<div id="buttonGallery">');
+            let myList = ["A", "B", "C", "D"];
+            let myColors = ["red", "green", "blue", "red"];
+
+            myList.map(function(letter, index) {
+              let $button = $("<div></div>")
+                .addClass("buttons")
+                .attr("id", "button_" + letter)
+                .html("<p>" + letter + "</p>")
+                .on("mouseenter", function() {
+                  $(this).css("background", myColors[index]);
+                })
+                .on("mouseleave", function() {
+                  if (!$(this).hasClass('clicked')) {
+                    $(this).css("background", "transparent");
+                  }
+                })
+                .on("click", function() {
+                  $(this).css("background", myColors[index]);
+                  $(this).addClass('clicked');
+                })
+              $buttons.append($button);
+            });
+
+            $("body").append($buttons);
+
+            $("#done").on("click", clearColor);
+
+            function clearColor() {
+              $(".buttons").css({
+                backgroundColor: 'transparent'
+              });
+              $(".buttons").removeClass('clicked');
+            }
+        </script>
+    </body>
+</html>
