@@ -9,6 +9,16 @@ import jwt from 'jsonwebtoken';
 
 // import http from 'http';
 // import socketIo from 'socket.io';
+import mysql from 'mysql';
+
+const config: mysql.ConnectionConfig = {
+    host: 'localhost',
+    user: 'root',
+    password: '',
+    database: 'cars',
+};
+
+const connection = mysql.createConnection(config);
 
 const app = express();
 
@@ -47,6 +57,23 @@ declare module 'express-serve-static-core' {
     }
 }
 
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+const userId = (_req: Request, res: Response) => {
+    // const username = localStorage.getItem('username');
+    // username?.toString;
+    // const query = 'SELECT * FROM user_credentials where username = ?';
+    // connection.query(query, [username], (error, results, _fields) => {
+    //     if (error) {
+    //         console.error('Error fetching data from MySQL:', error);
+    //         res.status(500).json({error: 'Internal Server Error'});
+    //     } else {
+    //         res.json(results);
+    //         console.log(results);
+    //         return results;
+    //     }
+    // });
+};
+
 const verifyJWT = (req: Request, res: Response, next: NextFunction) => {
     const authHeader = req.headers.authorization;
     if (!authHeader || !authHeader.startsWith('Bearer ')) {
@@ -56,9 +83,26 @@ const verifyJWT = (req: Request, res: Response, next: NextFunction) => {
     }
 
     const token = authHeader.split(' ')[1];
+    // let user_id = 0;
+    // const username = req.headers.username;
+    // username?.toString;
+
+    // const query = 'SELECT ID FROM user_credentials where username = ?';
+    // connection.query(query, [username], (error, results, _fields) => {
+    //     if (error) {
+    //         console.error('Error fetching data from MySQL:', error);
+    //         res.status(500).json({error: 'Internal Server Error'});
+    //     } else {
+    //         res.json(results);
+    //         console.log('the user id is: ' + results);
+    //         // user_id = results;
+    //     }
+    // });
+
     try {
-        const decoded = jwt.verify(token, 'your_secret_key');
-        (req as Request).user = decoded;
+        jwt.verify(token, 'your_secret_key');
+        // (req as Request).user = decoded;
+        // console.log(user_id, +' user id');
         next();
     } catch (error) {
         console.error('Error verifying JWT:', error);
@@ -119,17 +163,6 @@ app.get('/cars/:id', verifyJWT, async (req: Request, res: Response) => {
 
 ///////////////////////////
 
-import mysql from 'mysql';
-
-const config: mysql.ConnectionConfig = {
-    host: 'localhost',
-    user: 'root',
-    password: '',
-    database: 'cars',
-};
-
-const connection = mysql.createConnection(config);
-
 app.get('/cars', verifyJWT, (_req, res) => {
     const query = 'SELECT * FROM Car';
 
@@ -143,18 +176,82 @@ app.get('/cars', verifyJWT, (_req, res) => {
     });
 });
 
+// app.get('/types', verifyJWT, async (req, res) => {
+//     const query = 'SELECT * FROM cartype where userId = ?';
+
+//     const username = req.headers.username;
+//     username?.toString;
+//     let user_id = 0;
+
+//     const query_2 = 'SELECT ID FROM user_credentials where username = ?';
+//     connection.query(query_2, [username], (error, results, _fields) => {
+//         if (error) {
+//             console.error('Error fetching data from MySQL:', error);
+//             res.status(500).json({error: 'Internal Server Error'});
+//         } else {
+//             // res.json(results);
+//             console.log('the user id is: ' + results);
+//             user_id = results.id;
+//         }
+//     });
+//     connection.query(query, [user_id], (error, results, _fields) => {
+//         if (error) {
+//             console.error('Error fetching data from MySQL:', error);
+//             res.status(500).json({error: 'Internal Server Error'});
+//         } else {
+//             // console.log('Results:', results);
+//             res.json(results);
+//         }
+//     });
+// });
+
 app.get('/types', verifyJWT, async (req, res) => {
-    const query = 'SELECT * FROM cartype where userId = ?';
-    const userId = req.user.id;
-    connection.query(query, [userId], (error, results, _fields) => {
-        if (error) {
-            console.error('Error fetching data from MySQL:', error);
-            res.status(500).json({error: 'Internal Server Error'});
-        } else {
-            // console.log('Results:', results);
-            res.json(results);
+    const query = 'SELECT * FROM cartype WHERE userId = ?';
+
+    const username = req.headers.username;
+
+    if (!username) {
+        return res.status(400).json({error: 'Username is required'});
+    }
+
+    try {
+        const userIdResult = await new Promise((resolve, reject) => {
+            const query_2 =
+                'SELECT ID FROM user_credentials WHERE username = ?';
+            connection.query(query_2, [username], (error, results) => {
+                if (error) {
+                    reject(error);
+                } else {
+                    if (results.length > 0) {
+                        resolve(results[0].ID);
+                    } else {
+                        resolve(null);
+                    }
+                }
+            });
+        });
+
+        if (userIdResult === null) {
+            return res.status(404).json({error: 'User not found'});
         }
-    });
+
+        const user_id = userIdResult;
+
+        const carTypes = await new Promise((resolve, reject) => {
+            connection.query(query, [user_id], (error, results) => {
+                if (error) {
+                    reject(error);
+                } else {
+                    resolve(results);
+                }
+            });
+        });
+
+        res.json(carTypes);
+    } catch (error) {
+        console.error('Error fetching data from MySQL:', error);
+        res.status(500).json({error: 'Internal Server Error'});
+    }
 });
 
 app.delete('/types/:id', verifyJWT, async (_req: Request, res: Response) => {
