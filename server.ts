@@ -32,7 +32,7 @@ const corsOptions = {
     optionsSuccessStatus: 200,
 };
 
-const PORT = 3000;
+const PORT = 5432;
 app.use(cors(corsOptions));
 
 interface Car {
@@ -515,7 +515,9 @@ app.put('/types/:id', (req, res) => {
 });
 
 app.listen(PORT, () => {
-    console.log(`Server is running on http://localhost:${PORT}`);
+    console.log(
+        `Server is running on https://mpp-backend-nilt.onrender.com:${PORT}`,
+    );
 });
 
 // axios
