@@ -12,14 +12,15 @@ import mysql from 'mysql';
 // import socketIo from 'socket.io';
 
 const config: mysql.ConnectionConfig = {
-    host: 'dpg-cpi0i1mct0pc73fkdaa0-a',
+    host: '82.79.130.109',
     // postgres://admin:tkvOO7pmUZe0lKviqV8RLXqoU5ccF6CG@dpg-cpi0i1mct0pc73fkdaa0-a.oregon-postgres.render.com/mpp_database',
     // postgres://admin:tkvOO7pmUZe0lKviqV8RLXqoU5ccF6CG@dpg-cpi0i1mct0pc73fkdaa0-a/mpp_database
     // dpg-cpi0i1mct0pc73fkdaa0-a
-    port: 5432,
-    user: 'admin',
-    password: 'tkvOO7pmUZe0lKviqV8RLXqoU5ccF6CG',
-    database: 'mpp_database',
+    port: 3306,
+    user: 'public',
+    password: 'public',
+    // tkvOO7pmUZe0lKviqV8RLXqoU5ccF6CG
+    database: 'cars',
 };
 
 const connection = mysql.createConnection(config);
