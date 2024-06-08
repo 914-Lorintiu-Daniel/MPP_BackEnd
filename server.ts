@@ -12,7 +12,7 @@ import mysql from 'mysql';
 // import socketIo from 'socket.io';
 
 const config: mysql.ConnectionConfig = {
-    host: '82.79.130.109',
+    host: 'localhost',
     // postgres://admin:tkvOO7pmUZe0lKviqV8RLXqoU5ccF6CG@dpg-cpi0i1mct0pc73fkdaa0-a.oregon-postgres.render.com/mpp_database',
     // postgres://admin:tkvOO7pmUZe0lKviqV8RLXqoU5ccF6CG@dpg-cpi0i1mct0pc73fkdaa0-a/mpp_database
     // dpg-cpi0i1mct0pc73fkdaa0-a
