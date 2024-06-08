@@ -58,21 +58,21 @@ declare module 'express-serve-static-core' {
 }
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
-const userId = (_req: Request, res: Response) => {
-    // const username = localStorage.getItem('username');
-    // username?.toString;
-    // const query = 'SELECT * FROM user_credentials where username = ?';
-    // connection.query(query, [username], (error, results, _fields) => {
-    //     if (error) {
-    //         console.error('Error fetching data from MySQL:', error);
-    //         res.status(500).json({error: 'Internal Server Error'});
-    //     } else {
-    //         res.json(results);
-    //         console.log(results);
-    //         return results;
-    //     }
-    // });
-};
+// const userId = (_req: Request, res: Response) => {
+// const username = localStorage.getItem('username');
+// username?.toString;
+// const query = 'SELECT * FROM user_credentials where username = ?';
+// connection.query(query, [username], (error, results, _fields) => {
+//     if (error) {
+//         console.error('Error fetching data from MySQL:', error);
+//         res.status(500).json({error: 'Internal Server Error'});
+//     } else {
+//         res.json(results);
+//         console.log(results);
+//         return results;
+//     }
+// });
+// };
 
 const verifyJWT = (req: Request, res: Response, next: NextFunction) => {
     const authHeader = req.headers.authorization;
@@ -101,6 +101,8 @@ const verifyJWT = (req: Request, res: Response, next: NextFunction) => {
 
     try {
         jwt.verify(token, 'your_secret_key');
+        const decodedToken: any = jwt.decode(token);
+        console.log('decoded token: ' + decodedToken.username);
         // (req as Request).user = decoded;
         // console.log(user_id, +' user id');
         next();
@@ -276,6 +278,7 @@ app.delete('/types/:id', verifyJWT, async (_req: Request, res: Response) => {
     //         res.json(results);
     //     }
     // });
+
     // res.json({message: 'Item deleted successfully'});
 });
 
@@ -291,9 +294,9 @@ const generateEntity = () => {
         description: casual.sentence,
         price: casual.integer(1000, 100000),
         imageUrl: casual.random_element([
-            'https://example.com/image1.jpg',
-            'https://example.com/image2.jpg',
-            'https://example.com/image3.jpg',
+            'https://wallpapercave.com/image1.jpg',
+            'https://wallpapercave.com/image2.jpg',
+            'https://wallpapercave.com/image3.jpg',
         ]),
         typeId: 1,
     };
