@@ -167,7 +167,20 @@ app.get('/cars/:id', verifyJWT, async (req: Request, res: Response) => {
 
 ///////////////////////////
 
-app.get('/cars', verifyJWT, (_req, res) => {
+// app.get('/cars', verifyJWT, (_req, res) => {
+//     const query = 'SELECT * FROM Car';
+
+//     connection.query(query, (error, results, _fields) => {
+//         if (error) {
+//             console.error('Error fetching data from MySQL:', error);
+//             res.status(500).json({error: 'Internal Server Error'});
+//         } else {
+//             res.json(results);
+//         }
+//     });
+// });
+
+app.get('/cars', (_req, res) => {
     const query = 'SELECT * FROM Car';
 
     connection.query(query, (error, results, _fields) => {
