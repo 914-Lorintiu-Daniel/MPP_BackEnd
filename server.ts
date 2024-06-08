@@ -16,7 +16,7 @@ const config: mysql.ConnectionConfig = {
     // postgres://admin:tkvOO7pmUZe0lKviqV8RLXqoU5ccF6CG@dpg-cpi0i1mct0pc73fkdaa0-a.oregon-postgres.render.com/mpp_database',
     // postgres://admin:tkvOO7pmUZe0lKviqV8RLXqoU5ccF6CG@dpg-cpi0i1mct0pc73fkdaa0-a/mpp_database
     // dpg-cpi0i1mct0pc73fkdaa0-a
-    port: 3306,
+    // port: 3306,
     user: 'public',
     password: 'public',
     // tkvOO7pmUZe0lKviqV8RLXqoU5ccF6CG
@@ -36,7 +36,7 @@ const corsOptions = {
     optionsSuccessStatus: 200,
 };
 
-const PORT = 10000;
+const PORT = 3000;
 app.use(cors(corsOptions));
 
 interface Car {
