@@ -6,22 +6,24 @@ import bcrypt from 'bcrypt';
 import casual from 'casual';
 import cors from 'cors';
 import jwt from 'jsonwebtoken';
+import {Pool, PoolConfig} from 'pg';
 
 // import http from 'http';
 // import socketIo from 'socket.io';
-import mysql from 'mysql';
 
-const config: mysql.ConnectionConfig = {
-    host: 'postgres://admin:tkvOO7pmUZe0lKviqV8RLXqoU5ccF6CG@dpg-cpi0i1mct0pc73fkdaa0-a/mpp_database',
+const config: PoolConfig = {
+    host: 'dpg-cpi0i1mct0pc73fkdaa0-a',
     // postgres://admin:tkvOO7pmUZe0lKviqV8RLXqoU5ccF6CG@dpg-cpi0i1mct0pc73fkdaa0-a.oregon-postgres.render.com/mpp_database',
     // postgres://admin:tkvOO7pmUZe0lKviqV8RLXqoU5ccF6CG@dpg-cpi0i1mct0pc73fkdaa0-a/mpp_database
     // dpg-cpi0i1mct0pc73fkdaa0-a
+    port: 5432,
     user: 'admin',
     password: 'tkvOO7pmUZe0lKviqV8RLXqoU5ccF6CG',
     database: 'mpp_database',
 };
 
-const connection = mysql.createConnection(config);
+// const connection = mysql.createConnection(config);
+const connection = new Pool(config);
 
 const app = express();
 
