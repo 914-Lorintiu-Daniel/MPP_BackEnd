@@ -32,7 +32,7 @@ const corsOptions = {
     optionsSuccessStatus: 200,
 };
 
-const PORT = 5432;
+const PORT = 10000;
 app.use(cors(corsOptions));
 
 interface Car {
