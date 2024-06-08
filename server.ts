@@ -12,10 +12,12 @@ import jwt from 'jsonwebtoken';
 import mysql from 'mysql';
 
 const config: mysql.ConnectionConfig = {
-    host: 'localhost',
-    user: 'root',
-    password: '',
-    database: 'cars',
+    host: 'dpg-cpi0i1mct0pc73fkdaa0-a',
+    // postgres://admin:tkvOO7pmUZe0lKviqV8RLXqoU5ccF6CG@dpg-cpi0i1mct0pc73fkdaa0-a.oregon-postgres.render.com/mpp_database',
+    // postgres://admin:tkvOO7pmUZe0lKviqV8RLXqoU5ccF6CG@dpg-cpi0i1mct0pc73fkdaa0-a/mpp_database
+    user: 'admin',
+    password: 'tkvOO7pmUZe0lKviqV8RLXqoU5ccF6CG',
+    database: 'mpp_database',
 };
 
 const connection = mysql.createConnection(config);
