@@ -12,13 +12,13 @@ import mysql from 'mysql';
 // import socketIo from 'socket.io';
 
 const config: mysql.ConnectionConfig = {
-    host: 'localhost',
+    host: '16.171.64.175',
     // postgres://admin:tkvOO7pmUZe0lKviqV8RLXqoU5ccF6CG@dpg-cpi0i1mct0pc73fkdaa0-a.oregon-postgres.render.com/mpp_database',
     // postgres://admin:tkvOO7pmUZe0lKviqV8RLXqoU5ccF6CG@dpg-cpi0i1mct0pc73fkdaa0-a/mpp_database
     // dpg-cpi0i1mct0pc73fkdaa0-a
     // port: 3306,
-    user: 'public',
-    password: 'public',
+    user: 'frodo',
+    password: 'MyNewPass1!',
     // tkvOO7pmUZe0lKviqV8RLXqoU5ccF6CG
     database: 'cars',
 };
