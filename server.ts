@@ -536,10 +536,8 @@ app.get('/hello', (_req: Request, res: Response) => {
 //     );
 // });
 
-app.listen(3306, () => {
-    console.log(
-        `Server is running on https://mpp-backend-nilt.onrender.com:3306`,
-    );
+app.listen(80, () => {
+    console.log(`Server is running on 51.21.150.214:80`);
 });
 
 // // axios
