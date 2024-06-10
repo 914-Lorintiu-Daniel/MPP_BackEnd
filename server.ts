@@ -138,6 +138,12 @@ app.get('/cars/:id', verifyJWT, async (req: Request, res: Response) => {
     });
 });
 
+app.get('/hello', (_req: Request, res: Response) => {
+    res.status(200);
+    res.json({hello: 'string'});
+    console.log('hello world method');
+});
+
 // app.get('/cars', (_req: Request, res: Response) => {
 //     res.json(data);
 // });
