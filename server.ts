@@ -536,11 +536,11 @@ app.get('/hello', (_req: Request, res: Response) => {
 //     );
 // });
 
-// app.listen(PORT, () => {
-//     console.log(
-//         `Server is running on https://mpp-backend-nilt.onrender.com:${PORT}`,
-//     );
-// });
+app.listen(3000, () => {
+    console.log(
+        `Server is running on https://mpp-backend-nilt.onrender.com:3000`,
+    );
+});
 
 // // axios
 // //     .get(`http://localhost:${PORT}/cars`)
@@ -667,4 +667,4 @@ app.get('/hello', (_req: Request, res: Response) => {
 //     });
 // });
 
-// export default app;
+export default app;
