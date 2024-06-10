@@ -536,9 +536,9 @@ app.get('/hello', (_req: Request, res: Response) => {
 //     );
 // });
 
-app.listen(80, () => {
+app.listen(3306, () => {
     console.log(
-        `Server is running on https://mpp-backend-nilt.onrender.com:80`,
+        `Server is running on https://mpp-backend-nilt.onrender.com:3306`,
     );
 });
 
